@@ -23,14 +23,14 @@ First, you will need to install some prerequisites:
 
     sudo apt-get install git build-essential libusb-1.0-0-dev
 
-Install an up-to-date version of the <code>gcc</code> ARM toolchain:
+Install an up-to-date version of the `gcc` ARM toolchain:
 
     sudo apt-get remove binutils-arm-none-eabi gcc-arm-none-eabi
     sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
     sudo apt-get update
     sudo apt-get install gcc-arm-none-eabi=4.9.3.2014q4-0trusty12
 
-Also build and install the <code>st-link</code> utilities for communicating with the STM32 F4 Discover board:
+Also build and install the `st-link` utilities for communicating with the STM32 F4 Discover board:
 
     git clone https://github.com/texane/stlink.git
     cd stlink
