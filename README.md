@@ -6,6 +6,7 @@ This repository contains the materials for the EL-GY 6483 (Real Time Embedded Sy
 We will use `git` in this course, both to share the lab materials with you (the students) and for you to share your submissions with us (the instructors).
 
 To start off, each student should **fork** the lab repository as follows:
+
  * Visit [Bitbucket.org](https://bitbucket.org/) and sign in; create an account if you don't already have one.
  * Go to [https://bitbucket.org/el6483s2015/el6483-lab/fork](https://bitbucket.org/el6483s2015/el6483-lab/fork) and **fork** the repository for this lab.
 
