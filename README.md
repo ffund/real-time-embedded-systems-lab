@@ -16,4 +16,4 @@ To start off, each student should **fork** the lab repository as follows:
  ![Fork repository](http://i.imgur.com/OtUAN0N.png)
 
 
-Once you have your fork of the lab repository, you can proceed with Lab 1.
+Once you have your fork of the lab repository, you can proceed with [Lab 1](https://bitbucket.org/el6483s2015/el6483-lab/src/master/1-blinky/).
