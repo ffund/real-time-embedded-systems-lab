@@ -93,27 +93,41 @@ Once you're comfortable with the workflow for submitting your lab report, you ca
 In past programming courses, you may have become accustomed
 to using `printf()` or equivalent statements to print debug information. When programming for embedded systems, the development hardware often does not have the same output functionality as a typical desktop computer. In this situation, we can use a technique called **semi-hosted debugging**.
 
-In order to do this type of debugging you need several things: a board with an on-chip debugger, a program that controls the chip’s debugging mode, a way to interface with it, and a compile that can compile programs with debugging information.
+In semi-hosted debugging, we use a link between the development board ("target") and the host computer to display debug information from the target on the host.
 
+In order to do this type of debugging you need several things: a board with an on-chip debugger, a program that controls the chip’s debugging mode, a way to interface with it, and a compiler that can compile programs with debugging information. Instead of a single tool to do all these things, we'll use many tools working together. Collectively, these tools are called a toolchain (since they are "chained" together to produce a final executable application).
 
-Instead of a single tool to do all these things, we'll use many tools working together. Collectively, these tools are called a toolchain (since they are "chained" together to produce a final executable application).
+Our lab toolchain will include:
+
+* `gcc`, a popular open-source C compiler. The version of `gcc` that we'll use to **cross-compile** for the ARM platform is called with the command `arm-none-eabi-gcc`
+
+* `gdb`, a popular open-source debugger that gives you visibility inside your programs while they are running. `gdb` can run in semi-hosting mode, where it interfaces with a server that communicates with the on-chip debugger. The version of `gdb` that is used to debug ARM programs is called with the command `arm-none-eabi-gdb`.
+
+* `openocd` is open-source software that interfaces with a hardware on-chip debugger (e.g., like the one on the STM32F4 Discovery board). `openocd` runs a server that a `gdb` instance can attach to, and will pass messages between `gdb` and the hardware debugger on the STM32 F4 Discovery board.
+
+* `stlink` is a family of tools for use with the STM32 F4 Discovery board. It includes `st-util` (which has a role similar to `openocd`) and `st-flash` (which can be used to load a program onto the development board). Most of the functionality included in `stlink` tools is also available in other tools, but sometimes it's more convenient to use the `stlink` tools.
+
 
 #### Install ARM development tools
 
+At this point, you should be ready to install some ARM development tools. To complete this section, you must be connected to the Internet.
 
+Start by making sure your package manager knows about the most recent versions of available packages. Open a terminal and run:
+
+   sudo apt-get update
 
 First, you will need to install some prerequisites:
 
-    sudo apt-get install build-essential libusb-1.0-0-dev
+    sudo apt-get install build-essential pkg-config libusb-1.0-0-dev
 
-Install an up-to-date version of the `gcc` ARM toolchain:
+Install an up-to-date version of the `gcc` ARM toolchain. This includes the ARM version of the `gcc` compiler and the ARM version of the `gdb` debugger:
 
     sudo apt-get remove binutils-arm-none-eabi gcc-arm-none-eabi
     sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
     sudo apt-get update
     sudo apt-get install gcc-arm-none-eabi=4.9.3.2014q4-0trusty12
 
-Also build and install the `st-link` utilities for communicating with the STM32 F4 Discover board:
+Also build and install the `stlink` utilities for communicating with the STM32 F4 Discover board:
 
     git clone https://github.com/texane/stlink.git
     cd stlink
