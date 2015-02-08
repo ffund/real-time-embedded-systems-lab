@@ -144,14 +144,81 @@ Also build and install the `stlink` utilities for communicating with the STM32 F
     make
     sudo make install
 
-Finally, install openocd:
+Finally, build and install openocd:
 
-    cd .
+    cd
     wget http://downloads.sourceforge.net/project/openocd/openocd/0.8.0/openocd-0.8.0.tar.bz2
     tar jxf openocd-0.8.0.tar.bz2
-    sudo apt-get install openocd
+    cd openocd-0.8.0
+    ./configure --enable-stlink
+    make
+    sudo make install
+    sudo cp 49-stlinkv*.rules /etc/udev/rules.d
 
 
+Then reboot your computer.
+
+
+#### Plug in your STM32F4 Discover Board and test
+
+
+At this point, we'll run a quick check to make sure the STM32F4 Discovery board is recognized by our system.
+
+Plug your board into your computer using a USB mini cable.
+
+The small power LED near the USB connection should be lit. The larger COM LED should be lit in red.
+
+Then, open a terminal and run the following command:
+
+    st-util
+
+The COM LED on your board should begin to flash or show steady green, and you should see some output like the following:
+
+```
+2015-02-08T18:12:26 INFO src/stlink-common.c: Loading device parameters....
+2015-02-08T18:12:26 INFO src/stlink-common.c: Device connected is: F4 device, id 0x10016413
+2015-02-08T18:12:26 INFO src/stlink-common.c: SRAM size: 0x30000 bytes (192 KiB), Flash: 0x100000 bytes (1024 KiB) in pages of 16384 bytes
+2015-02-08T18:12:26 INFO gdbserver/gdb-server.c: Chip ID is 00000413, Core ID is  2ba01477.
+2015-02-08T18:12:26 INFO gdbserver/gdb-server.c: Target voltage is 2905 mV.
+2015-02-08T18:12:26 INFO gdbserver/gdb-server.c: Listening at *:4242...
+```
+
+Press Ctrl+C to quit `st-util`. Let's also try `openocd` - run:
+
+    openocd -f board/stm32f4discovery.cfg
+
+and you should see similar behavior from the COM LED (either flashing or steady green), as well as output like:
+
+```
+Open On-Chip Debugger 0.7.0 (2013-10-22-08:31)
+Licensed under GNU GPL v2
+For bug reports, read
+  http://openocd.sourceforge.net/doc/doxygen/bugs.html
+srst_only separate srst_nogate srst_open_drain connect_deassert_srst
+Info : This adapter doesn't support configurable speed
+Info : STLINK v2 JTAG v14 API v2 SWIM v0 VID 0x0483 PID 0x3748
+Info : Target voltage: 2.903844
+Info : stm32f4x.cpu: hardware has 6 breakpoints, 4 watchpoints
+```
+
+Press Ctrl+C to quit `openocd`.
+
+We've now confirmed that the utilities on your computer are able to communicate with the STM32 F4 Discovery's on-chip debugger.
+
+#### Build, install, and run the lab example
+
+Now you should be all set up to run the blinky experiment. This is just a simple experiment to blink an LED on the development board and to practice using the debugging tools.
+
+Open a terminal and navigate to the `1-blinky/src` folder inside the copy of the repository you've cloned using `git` in a previous step.
+
+This contains two folders: a `blinky` folder, which contains the main source code for this lab exercise, and an `STM32F4-Discovery_FW_V1.1.0` folder, which contains firmware libraries.
+
+
+`cd` inside the `blinky` library and run
+
+    ls -a
+
+You should see (among others) a Makefile and a 
 
 
 ## Submit your work
