@@ -8,6 +8,7 @@ We will use `git` in this course, both to share the lab materials with you (the 
 To start off, each student should **fork** the lab repository as follows:
 
  * Visit [Bitbucket.org](https://bitbucket.org/) and sign in; create an account if you don't already have one.
+
  * Go to [https://bitbucket.org/el6483s2015/el6483-lab/fork](https://bitbucket.org/el6483s2015/el6483-lab/fork) and **fork** the repository for this lab.
 
   Please use `el6483-netID` (with your own Net ID) as the name for your fork, make your repository private (at least for the duration of this course), and check the box to "Inherit repository user/group permissions." Since we're using git to receive and grade your lab submissions, it's important that you set it up correctly:
