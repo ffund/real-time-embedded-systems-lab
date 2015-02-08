@@ -116,16 +116,24 @@ Start by making sure your package manager knows about the most recent versions o
 
    sudo apt-get update
 
-First, you will need to install some prerequisites:
+First, you will need to install some prerequisites in order to build the later tools:
 
-    sudo apt-get install build-essential pkg-config libusb-1.0-0-dev
+    sudo apt-get install build-essential pkg-config libusb-1.0-0-dev git autoconf
 
-Install an up-to-date version of the `gcc` ARM toolchain. This includes the ARM version of the `gcc` compiler and the ARM version of the `gdb` debugger:
+Install an up-to-date version of the `gcc` ARM toolchain. This includes the ARM version of the `gcc` compiler and the ARM version of the `gdb` debugger.
+
+First, remove any old (incompatible) versions of this tool that might already be installed (don't worry if the output of this command says "Unable to locate packet"):
 
     sudo apt-get remove binutils-arm-none-eabi gcc-arm-none-eabi
+
+
+Then, add a more recent source for these tools and install from this repositoyr:
+
+
     sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
     sudo apt-get update
     sudo apt-get install gcc-arm-none-eabi=4.9.3.2014q4-0trusty12
+    sudo apt-get install binutils-arm-none-eabi
 
 Also build and install the `stlink` utilities for communicating with the STM32 F4 Discover board:
 
@@ -134,7 +142,11 @@ Also build and install the `stlink` utilities for communicating with the STM32 F
     ./autogen.sh
     ./configure
     make
-    make install
+    sudo make install
+
+Finally, install openocd:
+
+    sudo apt-get install openocd
 
 
 
