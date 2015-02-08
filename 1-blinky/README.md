@@ -146,6 +146,9 @@ Also build and install the `stlink` utilities for communicating with the STM32 F
 
 Finally, install openocd:
 
+    cd .
+    wget http://downloads.sourceforge.net/project/openocd/openocd/0.8.0/openocd-0.8.0.tar.bz2
+    tar jxf openocd-0.8.0.tar.bz2
     sudo apt-get install openocd
 
 
