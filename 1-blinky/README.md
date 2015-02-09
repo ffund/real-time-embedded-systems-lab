@@ -461,13 +461,20 @@ Edit main-nodebug.c, and remove the reference to the `<stdio.h>` header file
 and the `setbuf` and `printf` statements. Also, change the pin to 15, which will
 activate the blue LED instead of the orange one.
 
-In order to build and compile this program, you'll edit the Makefile. In general, a Makefile 
-includes stanzas in the form
+In order to build and compile this program, you'll edit the Makefile. This way, you'll be able 
+to build either the original blinky or the version without semi-hosted debugging, 
+just by running `make` with different arguments. 
+
+In general, a Makefile includes stanzas in the form
 
 ```
 target: dependencies
 	system command to build
 ```
+
+and then to build a certain target, you run `make target`. (If you run `make` without specifying
+a target, it will run `make all` by default.)
+
 If you look at the current Makefile, you'll see that the stanzas that define the rules for 
 building the original blinky are
 
