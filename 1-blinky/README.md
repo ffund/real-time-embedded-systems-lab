@@ -37,15 +37,19 @@ If you are running another operating system, you may install an Ubuntu partition
 Using an Ubuntu virtual machine is *not* recommended, because setting up the USB connection between 
 the host and virtual machine (in order to program the STM32 via USB) may be somewhat complicated.
 
-Further instructions are available online:
+If you aren't already using Ubuntu, you'll need to [download an ISO](http://www.ubuntu.com/download/desktop) 
+from the Ubuntu website. Further instructions are available online:
 
  * for [creating a Live USB on Windows](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows)
- * for [creating a live USB on Mac OS X](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-mac-osx)
  * for [installing Ubuntu in a separate partition alongside your existing operating system](http://www.ubuntu.com/download/desktop/install-ubuntu-desktop)
 
 Make sure to leave at least 2GB of extra space on your Ubuntu partition or your USB device, for persistent files.
+On the Windows Live USB creator, you need to use the "Set a persistent file size for storing changes" option.
+This is very important - if you don't have enough extra space, you won't be able to download and work 
+with the source code for the lab.
 
 If you are using the Ubuntu Live USB approach and are having trouble, the TAs can help you create your Live USB. 
+(Note: Mac OS X has traditionally had some problems with creating live USBs.)
 Bring a 4GB or larger USB key to TA office hours for assistance.
 
 
@@ -146,7 +150,6 @@ Then, add a more recent source for these tools and install from this repositoyr:
     sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
     sudo apt-get update
     sudo apt-get install gcc-arm-none-eabi=4.9.3.2014q4-0trusty12
-    sudo apt-get install binutils-arm-none-eabi
 
 Also build and install the `stlink` utilities for communicating with the STM32 F4 Discover board:
 
@@ -156,6 +159,8 @@ Also build and install the `stlink` utilities for communicating with the STM32 F
     ./configure
     make
     sudo make install
+    sudo cp 49-stlinkv*.rules /etc/udev/rules.d
+
 
 Finally, build and install openocd:
 
@@ -166,7 +171,6 @@ Finally, build and install openocd:
     ./configure --enable-stlink
     make
     sudo make install
-    sudo cp 49-stlinkv*.rules /etc/udev/rules.d
 
 The final step is to tell the debugger that it's safe to use configuration files in any directory. Make sure to run the following command as an ordinary user, *not* as root:
 
@@ -275,7 +279,7 @@ commands to run automatically.
 
 Now we're ready to start. In the terminal, in the same location where you ran `make`, run
 
-    arm-non-eabi-gcc -tui blinky.elf
+    arm-none-eabi-gdb -tui blinky.elf
 
 Hit 'Enter' when prompted to "Type return to continue."
 
@@ -286,7 +290,7 @@ You should see some output in this window saying
 
 followed by some other output.
 
-Leave `openocd` running and return to your `gdb` terminal
+Leave `openocd` running and return to your `gdb` terminal.
 
 At this stage, we have loaded the new program onto the board, but nothing is running.
 The top of the screen should show you the current position in the program execution.
@@ -428,6 +432,7 @@ either
 or
 
     Toggling LED state from on to off
+    
 
 You should implement this by checking the current state of the LED, *not* by 
 tracking a loop variable.
@@ -456,13 +461,45 @@ Edit main-nodebug.c, and remove the reference to the `<stdio.h>` header file
 and the `setbuf` and `printf` statements. Also, change the pin to 15, which will
 activate the blue LED instead of the orange one.
 
-Then edit the Makefile. Create a new target in the Makefile
-that compiles the main-nodebug.c source, so that you can run
+In order to build and compile this program, you'll edit the Makefile. In general, a Makefile 
+includes stanzas in the form
+
+```
+target: dependencies
+	system command to build
+```
+If you look at the current Makefile, you'll see that the stanzas that define the rules for 
+building the original blinky are
+
+
+```
+all: $(PROJ_NAME).elf
+
+$(PROJ_NAME).elf: $(SRCS)
+	$(CC) $(SEMIHOSTING_FLAGS) $(CFLAGS) $^ -o $@    
+	$(SIZE) $@    
+```
+where the variables (`PROJ_NAME`, `SRCS`, `CC`, `SEMIHOSTING_FLAGS`, `CFLAGS`, and `SIZE`)
+are defined previously in the Makefile.
+
+Edit the makefile, and add a new target:
+
+```
+nodebug: $(PROJ_NAME)-nodebug.elf
+
+$(PROJ_NAME)-nodebug.elf: dependencies
+	system command to build
+```
+
+Fill in the "dependencies" and "system command to build" yourself, 
+so that when you run
 
     make nodebug
 
+it will compile main-nodebug.c with the necessary flags and library files, 
 and generate a `blinky-nodebug.elf` program that will run without semi-hosted
-debugging. (You can find lots of information on Makefile syntax online.)
+debugging. (You can find lots of information on Makefile syntax online; 
+[here](http://mrbook.org/blog/tutorials/make/) is a quick tutorial.)
 
 Run `openocd' as before and run
 
