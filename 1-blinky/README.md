@@ -14,12 +14,14 @@ Please read this *entire document* once before beginning.
 
 ## Collaboration policy
 
-Lab exercises are to be completed individually. You must keep your Bitbucket repository private, and you may not share a code file with another student.
+Lab exercises are to be completed individually. You must keep your Bitbucket repository private, 
+and you may not share source code files with another student.
 
 You may ask other students for help by email, but if you do so,
 
 1. You should not share source code
-2. You should include the entire email chain - the request for help, the response, and any futher communication about the lab - in an appendix to your lab report.
+2. You should include the entire email chain - the request for help, the response, and any 
+futher communication about the lab - in an appendix to your lab report.
 
 You are encouraged to make use of the [TA lab hours](http://witestlab.poly.edu/~ffund/el6483/#hours) for help with the lab exercises.
 
@@ -29,9 +31,11 @@ You are encouraged to make use of the [TA lab hours](http://witestlab.poly.edu/~
 ### Set up development environment
 
 
-We will use an open-source toolchain for all of the lab exercises. Instructions are provided for Ubuntu 14.04. If you are running another operating system, you may install an Ubuntu partition or use an Ubuntu Live USB to run the lab exercises.
+We will use an open-source toolchain for all of the lab exercises. Instructions are provided for Ubuntu 14.04. 
+If you are running another operating system, you may install an Ubuntu partition or use an Ubuntu Live USB to run the lab exercises.
 
-Using an Ubuntu virtual machine is *not* recommended, because setting up the USB connection between the host and virtual machine (in order to program the STM32 via USB) may be somewhat complicated.
+Using an Ubuntu virtual machine is *not* recommended, because setting up the USB connection between 
+the host and virtual machine (in order to program the STM32 via USB) may be somewhat complicated.
 
 Further instructions are available online:
 
@@ -41,29 +45,35 @@ Further instructions are available online:
 
 Make sure to leave at least 2GB of extra space on your Ubuntu partition or your USB device, for persistent files.
 
-If you are using the Ubuntu Live USB approach and are having trouble, the TAs can help you create your Live USB. Bring a 4GB or larger USB key to TA office hours for assistance.
+If you are using the Ubuntu Live USB approach and are having trouble, the TAs can help you create your Live USB. 
+Bring a 4GB or larger USB key to TA office hours for assistance.
 
 
-You should be comfortable with the Linux shell (terminal). If you're not, there are plenty of materials online that can help you get up to speed. [Here is one tutorial you can try](http://cli.learncodethehardway.org/book/). You don't need to completely master the terminal, but you shouldn't be scared if you're expected to use it.
+You should be comfortable with the Linux shell (terminal). If you're not, there are plenty 
+of materials online that can help you get up to speed. [Here is one tutorial you can try](http://cli.learncodethehardway.org/book/). 
+You don't need to completely master the terminal, but you shouldn't be scared if you're expected to use it.
 
 
 Once you are in your Ubuntu 14.04 environment and are ready to start, you'll need to install some tools.
 
 #### Get comfortable with `git` and Markdown
 
-First, you will install `git`. Git is the most widely adopted version control system for software development, and we're using it in this course to share code with you and receive your submissions for grading.
+First, you will install `git`. Git is the most widely adopted version control system for software development, 
+and we're using it in this course to share code with you and to receive your submissions for grading.
 
 To install `git`, open a terminal and run:
 
     sudo apt-get install git
 
-We recommend setting up key-based authentication in order to use  `git` with private repositories on Bitbucket. You can find instructions for setting this up [here](https://confluence.atlassian.com/pages/viewpage.action?pageId=270827678).
+We recommend setting up key-based authentication in order to use  `git` with private repositories on 
+Bitbucket. You can find instructions for setting this up [here](https://confluence.atlassian.com/pages/viewpage.action?pageId=270827678).
 
 Once that's done, you can get a local copy of your fork as follows. Open a terminal and run:
 
     git clone git@bitbucket.org:USERNAME/el6483-NETID.git
 
-where `USERNAME` is your Bitbucket username and `NETID` is your NYU Net ID. (You should have named your fork `el6483-NETID`.) You can also find this address on the Bitbucket home page for your repository:
+where `USERNAME` is your Bitbucket username and `NETID` is your NYU Net ID. 
+(You should have named your fork `el6483-NETID`.) You can also find this address on the Bitbucket home page for your repository:
 
 ![Find SSH URL](http://i.imgur.com/VsbpZet.png)
 
@@ -418,6 +428,9 @@ either
 or
 
     Toggling LED state from on to off
+
+You should implement this by checking the current state of the LED, *not* by 
+tracking a loop variable.
 
 Build your project and run it on your board.
 Take a screenshot of your `openocd` showing the
