@@ -75,6 +75,9 @@ The REPORT.md file is written in Markdown. A helpful tutorial on Markdown is ava
 
 ![Atom editor](http://i.imgur.com/jTTwWCT.png)
 
+However, even a basic text editor should be fine.
+
+
 Whether you're using a Markdown editor or a regular text editor, open the REPORT.md file. At the top, you'll see a table, with a space for your name and Net ID. Fill in your own name and Net ID, and save the file.
 
 Open a terminal, and navigate to the `1-blinky` folder. Type the following to **commit** the changes to this file and **push** them back to Bitbucket:
@@ -155,6 +158,10 @@ Finally, build and install openocd:
     sudo make install
     sudo cp 49-stlinkv*.rules /etc/udev/rules.d
 
+The final step is to tell the debugger that it's safe to use configuration files in any directory. Make sure to run the following command as an ordinary user, *not* as root:
+
+    echo "set auto-load safe-path /" >> ~/.gdbinit
+
 
 Then reboot your computer.
 
@@ -218,7 +225,235 @@ This contains two folders: a `blinky` folder, which contains the main source cod
 
     ls -a
 
-You should see (among others) a Makefile and a 
+You should see (among others) a Makefile. Open this Makefile and examine it.
+
+
+*Answer questions 1), 2), 3) and 4) in REPORT.md.*
+
+Once you've finished answering the questions about the Makefile, run
+
+    make
+
+to build this code.
+
+The output of this command should look something like this:
+
+```
+arm-none-eabi-gcc --specs=rdimon.specs -lc -lrdimon  -ggdb -O0 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o blinky.elf
+arm-none-eabi-size blinky.elf
+   text	   data	    bss	    dec	    hex	filename
+  11276	   2420	   1288	  14984	   3a88	blinky.elf
+```
+
+and if you run `ls`, you should see a file `blinky.elf` in your directory. This is the binary executable file we'll copy to the STM32F4 Discovery board.
+
+To run this example, we'll need two terminals. Open a second terminal and run
+
+    openocd -f board/stm32f4discovery.cfg
+
+in the new terminal. Leave this running.
+
+In the original terminal, open the .gdbinit file in a text editor and examine it carefully.
+
+We are going to use `gdb` and its connection to the development board via `openocd` to load the `blinky.elf` program onto the board. The .gdbinit file defines some initial commands that will run when we open `gdb`.
+
+* Answer question 5) in REPORT.md.*
+
+Now we're ready to start. In the terminal, in the same location where you ran `make`, run
+
+    arm-non-eabi-gcc -tui blinky.elf
+
+Hit 'Enter' when prompted to "Type return to continue."
+
+Leaving `gdb` running, look at the second terminal, where `openocd` is still running.
+You should see some output in this window saying
+
+    Info:    accepting 'gdb' connection from 3333
+
+followed by some other output.
+
+Leave `openocd` running and return to your `gdb` terminal
+
+At this stage, we have loaded the new program onto the board, but nothing is running.
+The top of the screen should show you the current position in the program execution.
+It should be in the startup file, since the program hasn't started running yet.
+
+Run
+
+    info registers
+
+What is in each of the ARM registers at this stage?
+
+* Answer question 6) in the REPORT.md.*
+
+Before we continue running the program, we're going to set a **breakpoint**.
+This will stop program execution at a certain point, so that we can examine the state of
+the program, the contents of registers, etc.
+
+Let's set a breakpoint at the beginning of the main.c file. In the `gdb` window,
+run:
+
+    break main.c:1
+
+Hit Enter, then at the `gdb` prompt, run
+
+    continue
+
+and hit Enter again.
+
+The program will begin to run, but will stop at the breakpoint we've defined.
+This will occur at the beginning of the `initSystick()` function. Now, we should
+see the main.c file in the top half of the screen.
+
+Once again, type
+
+    info registers
+
+to show the values in each register at this stage.
+
+The debugger can also **disassmble** any function for us, i.e., it can show
+us the assembly code version of any function.
+
+
+Let's look at the SysTick_Handler function. First, set a breakpoint there:
+
+    break main.c:29
+
+then run
+
+    continue
+
+When program execution stops again, you should be at the top of the SysTick_Handler
+function.
+
+Let's print the value of the millisecondCounter variable here:
+
+    print millisecondCounter
+
+Also show the value of each of the registers:
+
+    info registers
+
+
+Now, let's look at the assembly code for this function:
+
+    disassemble SysTick_Handler
+
+The arrow on the left side shows what line of code execution is currently stopped at.
+
+
+Let's "step" forward one line of C code. Run
+
+    step
+
+Run
+
+     disassemble SysTick_Handler
+
+again. What line of code is execution stopped at now?
+
+Now run
+
+    print millisecondCounter
+
+and
+
+    info registers
+
+
+*Answer question 7) in REPORT.md.*
+
+To remove the breakpoint we've set, run
+
+    clear main.c:29
+
+
+Let's set another breakpoint just before toggling the LED and printing "Toggling LED".
+Run
+
+    break main.c:44
+
+then
+
+    continue
+
+Step through lines 44-49 of main.c using the
+
+    step
+
+
+command. In your second terminal, with `openocd` watch for the "Toggling LED" output
+to appear. Take a screenshot of this output, upload it to an image hosting service,
+and include it in your report.
+
+*Answer question 8) in REPORT.md.*
+
+
+Next, let's remove the breakpoint:
+
+    clear main.c:44
+
+and run
+
+    continue
+
+
+Our LED should be flashing on and off, with one second in the on state
+followed by one second in the off state.
+
+
+#### Modify `printf` statement in the code
+
+
+Modify `main.c` so that, in the main loop, you get the current value
+of the LED before toggling it. Change the `printf` statement so that it prints
+either
+
+    Toggling LED state from off to on
+
+or
+
+    Toggling LED state from on to off
+
+Build your project and run it on your board.
+Take a screenshot of your `openocd` showing the
+modified `printf` statement and upload it to an image hosting service so that you
+can include it in your report.
+
+*Answer question 9) in REPORT.md.*
+
+
+#### Run without semi-hosted debugging
+
+Stop `openocd` and `gdb` on your computer. Disconnect the board from the host
+computer, then reconnect it. Does the blinky program run? Explain.
+
+*Answer question 10) in REPORT.md.*
+
+Make a copy of main.c, called main-nodebug.c:
+
+    cp main.c main-nodebug.c
+
+
+Edit main-nodebug.c, and remove the reference to the `<stdio.h>` header file
+and the `setbuf` and `printf` statements. Also, change the pin to 15, which will
+activate the blue LED instead of the orange one.
+
+Then edit the Makefile. Create a new target in the Makefile
+that compiles the main-nodebug.c source, so that you can run
+
+    make nodebug
+
+and generate a `blinky-nodebug.elf` program that will run without semi-hosted
+debugging. (You can find lots of information on Makefile syntax online.)
+
+Use the same procedure as before to
+burn this `blinky-nodebu.elf` to your device. Then,
+stop `openocd` and `gdb` on your computer. Disconnect the board from the host
+computer, then reconnect it.
+This program should flash the blue LED *without* `openocd` or `gdb` attached.
+Show your work to a TA
+during [lab hours](http://witestlab.poly.edu/~ffund/el6483/#hours).
 
 
 ## Submit your work
@@ -226,9 +461,13 @@ You should see (among others) a Makefile and a
 To submit your work, please open a terminal, navigate to the `1-blinky` folder, and run:
 
     git add REPORT.md
-    git add
+    git add main.c
+    git add main-nodebug.c
+    git add Makefile
     git commit -m "Please grade this lab1-blinky submission"
     git push -u origin master
 
 
-You are also required to visit one of the [TA lab hours](http://witestlab.poly.edu/~ffund/el6483/#hours) with your laptop and development board, and show your work to a TA in person.
+You are also required to visit one of the
+[TA lab hours](http://witestlab.poly.edu/~ffund/el6483/#hours)
+with your laptop and development board, and show your work to a TA in person.
