@@ -255,9 +255,13 @@ in the new terminal. Leave this running.
 
 In the original terminal, open the .gdbinit file in a text editor and examine it carefully.
 
-We are going to use `gdb` and its connection to the development board via `openocd` to load the `blinky.elf` program onto the board. The .gdbinit file defines some initial commands that will run when we open `gdb`.
+We are going to use `gdb` and its connection to the development board via `openocd` to load the `blinky.elf` 
+program onto the board. The .gdbinit file defines some initial commands that will run when we open `gdb`.
 
 * Answer question 5) in REPORT.md.*
+
+Note that you need to run `gdb` from inside this directory in order for these 
+commands to run automatically.
 
 Now we're ready to start. In the terminal, in the same location where you ran `make`, run
 
@@ -447,8 +451,11 @@ that compiles the main-nodebug.c source, so that you can run
 and generate a `blinky-nodebug.elf` program that will run without semi-hosted
 debugging. (You can find lots of information on Makefile syntax online.)
 
-Use the same procedure as before to
-burn this `blinky-nodebu.elf` to your device. Then,
+Run `openocd' as before and run
+
+    arm-none-eabi-gdb -tui blinky-nodebug.elf
+    
+to burn this `blinky-nodebug.elf` to your device. Then,
 stop `openocd` and `gdb` on your computer. Disconnect the board from the host
 computer, then reconnect it.
 This program should flash the blue LED *without* `openocd` or `gdb` attached.
