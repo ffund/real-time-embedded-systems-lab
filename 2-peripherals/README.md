@@ -63,18 +63,25 @@ A template `main.c` has been created for you inside the `blinky-gpio/src` direct
 and read it to understand the control flow of the program. Then edit it as follows.
 
 In the `initLeds` function:
+
  * **Enable clock on GPIOD port**: Check Section 7.3.10 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) and find out which bit of the RCC AHB1 peripheral clock enable register is used to enable the clock to the GPIOD port. Set a value of 1 on this bit of `RCC->AHB1ENR`; make sure not to erase the other values in the register.
+
  * **Set mode of GPIOD pins 12-15 to output**: Using `GPIOD->MODER`, set the mode of GPIOD pins 12-15 to output. Refer to Section 8.4.1 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) for more information on the MODER register.
 
 In the `initButton` function:
-  * **Enable clock on GPIOA port**: Check Section 7.3.10 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) and find out which bit of the RCC AHB1 peripheral clock enable register is used to enable the clock to the GPIOA port. Set a value of 1 on this bit of `RCC->AHB1ENR`; make sure not to erase the other values in the register.
-  * **Set mode of GPIOA pin 0 to input**: Using `GPIOA->MODER`, set the mode of GPIOA pin 0 to input. Refer to Section 8.4.1 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) for more information on the MODER register.
+
+ * **Enable clock on GPIOA port**: Check Section 7.3.10 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) and find out which bit of the RCC AHB1 peripheral clock enable register is used to enable the clock to the GPIOA port. Set a value of 1 on this bit of `RCC->AHB1ENR`; make sure not to erase the other values in the register.
+
+ * **Set mode of GPIOA pin 0 to input**: Using `GPIOA->MODER`, set the mode of GPIOA pin 0 to input. Refer to Section 8.4.1 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) for more information on the MODER register.
 
 In the `loop` function:
+
  * **Set first part of `if` to evaluate true if button is pressed**: Using the input data register (`GPIOA->IDR`),
  write a statement that evaluates true if the User button (which is connected to pin 0 on GPIO port A) is pressed.
  Replace the `1` in `if (1)` with this statement. The IDR  register is specified in Section 8.4.5 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf).
+
  * **Turn on LEDs when button is pressed**: Use the Bit Set Reset Register to set pins 12-15 on GPIO port D when the button is pressed (use `GPIOD->BSRRL`). The BSSR register is specified in Section 8.4.7 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf).
+
  * **Turn off LEDs when button is not pressed**: Use the Bit Set Reset Register to reset pins 12-15 on GPIO port D when the button is not pressed (use `GPIOD->BSRRH`). The BSSR register is specified in Section 8.4.7 of the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf).
 
 After you've made these changes, make sure you are in the `button-gpio` folder, then run
@@ -121,7 +128,7 @@ For example, `x 0x40000000` prints the contents of the memory address 0x40000000
 
 Use `x` to inspect the contents of the memory address corresponding to the input data register for the GPIO A port (to which the User button is connected).
 
-blkh* First, check the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) to find the specific memory address associated with this register.
+* First, check the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) to find the specific memory address associated with this register.
 * Then, run your program on the board with gdb connected.
 * Break program execution sometime after the User button peripheral is already set up.  
 * Using `x`, show the contents of the input data register for the GPIO A port when the user button is pressed and when it is not pressed. Include a screenshot in your report.
