@@ -5,7 +5,7 @@ Lab Assignment | 2 - GPIO Peripherals
 -------------- | -------------
 Name           |
 Net ID         |
-Report due     | Monday, 2 March
+Report due     | Tuesday, 3 March
 
 
 Please answer the following questions:
