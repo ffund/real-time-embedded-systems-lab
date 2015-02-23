@@ -59,7 +59,7 @@ Specifically,
  * If the button is pressed, light all four LEDs and keep them lit for as long as the button is pressed.
  * If the button is not pressed, turn all four LEDs off.
 
-A template `main.c` has been created for you inside the `blinky-gpio/src` directory. Open this file
+A template `main.c` has been created for you inside the `button-gpio/src` directory. Open this file
 and read it to understand the control flow of the program. Then edit it as follows.
 
 In the `initLeds` function:
