@@ -39,3 +39,6 @@ line below.
 ![](http://path/to/image.png)
 
 
+5) Which bit in this value changes when the button is pressed? Why?
+
+
