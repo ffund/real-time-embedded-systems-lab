@@ -149,7 +149,7 @@ fill in function calls to the RCC and GPIO library functions.
 Refer to the library source and header files to find out the usage for each function.
 
 Next, modify the Makefile to include
-the `stm32f4xx_gpio.c` and `stm32f4xx_rcc.c` source files in the list of sources.e
+the `stm32f4xx_gpio.c` and `stm32f4xx_rcc.c` source files in the list of sources.
 
 
 When you're ready, run
