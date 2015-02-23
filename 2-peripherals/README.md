@@ -123,10 +123,11 @@ Then press the black Reset button on your board. Now, when you press the blue Us
 
 If you need to debug, you can run `make debug` (and `make openocd` in a second terminal) to run `gdb` and step through your code.
 
-`x` is a useful gdb command to examing a memory address.
-For example, `x 0x40000000` prints the contents of the memory address 0x40000000.
+`x` is a useful gdb command, used to eXamine a memory address. For example, `x 0x40000000` 
+prints the contents of the memory address `0x40000000`.
 
-Use `x` to inspect the contents of the memory address corresponding to the input data register for the GPIO A port (to which the User button is connected).
+Use `x` to inspect the contents of the memory address corresponding 
+to the input data register for the GPIO A port (to which the User button is connected).
 
 * First, check the [STM32F4 Discovery Technical Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf) to find the specific memory address associated with this register.
 * Then, run your program on the board with gdb connected.
