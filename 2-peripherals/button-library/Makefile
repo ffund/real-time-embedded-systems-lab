@@ -11,10 +11,6 @@ SOURCES += system_stm32f4xx.c
 
 SOURCES += src/main.c
 
-SOURCES += \
-                        $(PERIPH)/src/stm32f4xx_gpio.c \
-                        $(PERIPH)/src/stm32f4xx_rcc.c 
-
 
 OBJECTS = $(addprefix $(BUILDDIR)/, $(addsuffix .o, $(abspath $(basename $(SOURCES)))))
 
