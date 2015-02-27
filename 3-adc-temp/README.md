@@ -58,6 +58,8 @@ Then merge in changes from the public course repository:
 
 ### Set up ADC
 
+To complete this lab, you'll make some minor changes in `temperature/src/main.c`.
+
 Most of the ADC code has already been set up for you. Look in the 
 `initTempSensor()` function to see how it's done.
 
