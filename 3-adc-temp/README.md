@@ -104,7 +104,7 @@ you mean to do floating point division. Assign the value back to the `temperatur
 in the [Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf), Section 13.10, 
 as  `((V_sense – V_25) / Avg_Slope) + 25`. Refer to the 
 [datasheet](http://witestlab.poly.edu/~ffund/el6483/files/DM00037051.pdf), Section 5.3.21, for 
-the vaues of V_25 and Avg_Slope. Assign the value back to the `temperature` variable.
+the values of V_25 and Avg_Slope. Assign the value back to the `temperature` variable.
 
 
 ### Run your code
