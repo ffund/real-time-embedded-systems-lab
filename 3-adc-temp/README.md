@@ -94,8 +94,8 @@ in three ways:
  * **Digital value** returned by ADC. The digital value returned by the ADC 
 is assigned to a variable `temperature`.
  
- * **Analog voltage**. This was (approximately) the input to the ADC.
-In this function, convert the ADC output to the voltage using the formula on page 20 in the 
+ * **Voltage**. This was (approximately) the input to the ADC.
+In this function, convert the ADC output back to a voltage using the formula on page 20 in the 
 [lecture slides on peripherals](http://witestlab.poly.edu/~ffund/el6483/files/lecture4-peripherals.pdf).
 Make sure you use float constants so that you don't accidentally do integer division when 
 you mean to do floating point division. Assign the value back to the `temperature` variable.
@@ -121,7 +121,7 @@ you should see lines being printed to the screen, like this:
 ```
 
 In each line, the first value is the digital value returned by the ADC, the 
-second value is the analog voltage (approximate), and the last is the temperature value.
+second value is the estimate of voltage, and the last is the temperature value.
 
 
 Save about 30 (sequential) lines of this to a plaintext file, and name it `12b.csv`. 
