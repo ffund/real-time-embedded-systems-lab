@@ -88,7 +88,7 @@ float readTemp(){
 	
 	ADC_SoftwareStartConv(ADC1);				// Start the conversion
 	while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET); // Wait for conversion to finish
-	temperature = ADC_GetConversionValue(ADC1); 			// Get ADC reading
+	temperature = (float) ADC_GetConversionValue(ADC1); 			// Get ADC reading
 
 	// Print ADC reading
 	setbuf(stdout, NULL);

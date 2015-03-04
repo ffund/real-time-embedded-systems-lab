@@ -58,6 +58,8 @@ Then merge in changes from the public course repository:
 
 ### Set up ADC
 
+To complete this lab, you'll make some minor changes in `temperature/src/main.c`.
+
 Most of the ADC code has already been set up for you. Look in the 
 `initTempSensor()` function to see how it's done.
 
@@ -92,18 +94,17 @@ in three ways:
  * **Digital value** returned by ADC. The digital value returned by the ADC 
 is assigned to a variable `temperature`.
  
- * **Analog voltage**. This was (approximately) the input to the ADC.
-In this function, convert the ADC output to the voltage using the formula on page 20 in the 
+ * **Voltage**. This was (approximately) the input to the ADC.
+In this function, convert the ADC output back to a voltage using the formula on page 20 in the 
 [lecture slides on peripherals](http://witestlab.poly.edu/~ffund/el6483/files/lecture4-peripherals.pdf).
 Make sure you use float constants so that you don't accidentally do integer division when 
 you mean to do floating point division. Assign the value back to the `temperature` variable.
 
  * **Temperature value**. The formula for converting the voltage to a temperature value is given 
 in the [Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf), Section 13.10, 
-as 
-> ((V_sense – V_25) / Avg_Slope) + 25
-Refer to the [datasheet](http://witestlab.poly.edu/~ffund/el6483/files/DM00037051.pdf), Section 5.3.21, for 
-the vaues of V_25 and Avg_Slope. Assign the value back to the `temperature` variable.
+as  `((V_sense – V_25) / Avg_Slope) + 25`. Refer to the 
+[datasheet](http://witestlab.poly.edu/~ffund/el6483/files/DM00037051.pdf), Section 5.3.21, for 
+the values of V_25 and Avg_Slope. Assign the value back to the `temperature` variable.
 
 
 ### Run your code
@@ -120,7 +121,7 @@ you should see lines being printed to the screen, like this:
 ```
 
 In each line, the first value is the digital value returned by the ADC, the 
-second value is the analog voltage (approximate), and the last is the temperature value.
+second value is the estimate of voltage, and the last is the temperature value.
 
 
 Save about 30 (sequential) lines of this to a plaintext file, and name it `12b.csv`. 
@@ -133,15 +134,16 @@ Repeat the previous steps, but this time, set your ADC to use 10 bits
 of precision. You will need to change a value in `initTempSensor()`
 and a value in `readTemp()`.
 
-Save 30 lines of output to a plaintext file, and name it `10b.csv`.
+Save 30 (sequential) lines of output to a plaintext file, and name it `10b.csv`.
 
-Repeat for 8 bits and 6 bits of resolution, saving 30 lines of data 
+Repeat for 8 bits and 6 bits of resolution, saving 30 (sequential) lines of data 
 to `8b.csv` and `6b.csv`.
 
 
 ## Submit your work
 
-To submit your work, please open a terminal, navigate to the `2-peripherals` folder, and run:
+To submit your work, first restore your code to the 12-bit resolution version.
+Complete the `REPORT.md`. Then, open a terminal, navigate to the `3-adc-temp` folder, and run:
 
     git add REPORT.md
     git add temperature/src/main.c

@@ -24,4 +24,4 @@ Put your plot online using any image hosting service and show it here:
 
 
 
-Comment on the plot. What does it show about ADC resolution?
+Comment on the plot (in detail!). What does it show about ADC resolution?
