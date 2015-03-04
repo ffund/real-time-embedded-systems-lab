@@ -42,8 +42,11 @@ X            |
 Y            | 
 Z            |
 
+4) Show a screenshot of your `gdb` window at the first step 
+_after_ the CS pin is set to low.
 
-4) Show the code you use to light the LEDs according to the board's orientation.
+
+5) Show the code you use to light the LEDs according to the board's orientation.
 
 ```
 fill in the relevant lines of code here.
@@ -51,7 +54,7 @@ fill in the relevant lines of code here.
 ```
 
 
-5) In the `accel-whoami` program, we are reading from a register 
+6) In the `accel-whoami` program, we are reading from a register 
 on the device that is configured to return a default value. Based on the value
 that is returned, we can identify the device as a LIS3DSH or a LIS302DL.
 

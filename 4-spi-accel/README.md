@@ -118,6 +118,21 @@ Fill in the zero-G offset table in the report (refer to the
 [LIS3DSH datasheet](http://www.st.com/web/en/resource/technical/document/datasheet/DM00040962.pdf),
 Section 3.5.2, for more details.)
 
+Using `gdb`, set a breakpoint in `main.c`, right before you put the chip select line 
+low in `readSPI` (refer to lab 1 instructions for the syntax).
+Continue up until that breakpoint (with `continue`). Then, run `layout split` so that you can see both the C 
+and assembly code at the same time in `gdb`. Step through the *assembly* code using 
+the command `si` to run one assembly line at a time. (The `gdb` window will also show you where you 
+are in the C code, using this "split" view.)
+
+As you approach the line that sets the pin used for CS low, 
+run `x` between every `si` step to show the contents of the output data register (ODR)
+for that pin. (Look up the address of this register in the 
+[STM32F4 Discovery reference manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf).)
+In your report, include a screenshot of the `gdb` screen at the first step 
+_after_ the pin is set low (i.e., the first time `x` shows a zero value in 
+the output data register for this pin).
+
 
 ### Light LEDs based on board position
 
