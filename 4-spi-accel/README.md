@@ -134,7 +134,7 @@ _after_ the pin is set low (i.e., the first time `x` shows a zero value in
 the output data register for this pin).
 
 
-### Light LEDs based on board position
+### Light LEDs based on board orientation
 
 In this part of the lab, we will light LEDs on the board based on its rotation.
 
@@ -143,7 +143,7 @@ orientation between portrait and landscape rotation, depending on how the
 user is holding the device. You will do something similar; 
 in this part of the lab, you will use the accelerometer readings to light LEDs so 
 that when you hold the STM32F4 Discovery board facing yourself, the lowest of the four LEDs 
-(the one closest to the ground) is always lit, regardless of how the board 
+(the one closest to the ground - and only this one) is lit, regardless of how the board 
 is oriented.
 
 In the `accel-led` folder, copy the contents of your `writeSPI`, `readSPI`, and 
