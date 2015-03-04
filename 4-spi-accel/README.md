@@ -132,7 +132,7 @@ that when you hold the STM32F4 Discovery board facing yourself, the lowest of th
 is oriented.
 
 In the `accel-led` folder, copy the contents of your `writeSPI`, `readSPI`, and 
-`readAxes()` functions into `main.c`. Also copy the `initLeds` function from the 
+`readAxes` functions into `main.c`. Also copy the `initLeds` function from the 
 button press lab (lab 2 - library version) into `main.c`.
 
 Next, modify the `main` function in `main.c` to calculate pitch and roll of the board 
