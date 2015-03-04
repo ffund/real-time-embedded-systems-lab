@@ -5,7 +5,7 @@ Lab Assignment | 4 - Accelerometer
 -------------- | -----------------------
 Name           | 
 Net ID         | 
-Report due     | Thursday, 19 March 2015
+Report due     | Wednesday, 11 March 2015
 
 
 Please answer the following questions:
