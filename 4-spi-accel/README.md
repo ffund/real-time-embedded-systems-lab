@@ -3,8 +3,9 @@ Lab 4: Accelerometer and SPI
 
 The aim of this lab is for you to:
 
- * Accelerometer
- * SPI
+ * Learn how to use SPI to communicate with an accelerometer
+
+ * Implement a common usage of accelerometer readings (detect device orientation)
 
 
 Please read this *entire document* once before beginning.
@@ -58,8 +59,8 @@ If anybody has a board with a LIS302DL, please notify me ASAP and I will
 create a modified version of the lab for that device. (I will need to 
 borrow your board for a few hours to test it.)
 
-To test which device is on your board, navigate to the `accel-whoami` folder
-and flash the binary file in there onto your device with the command:
+To identify which device is on your board, navigate to the `accel-whoami` folder
+and flash the binary file onto your device with the command:
 
 ```
 st-flash write accel-whoami.bin 0x8000000
@@ -102,16 +103,16 @@ there are comments in these functions to guide you.
 Because data is sent one byte at a time and the accelerometer readings 
 are 16 bits, you will need to do some bit shifting to 
 set the full set of 16-bit readings in this function.
-Also note that the accelerometer returns *signed* value (2's complement), 
+Also note that the accelerometer returns *signed* values (2's complement), 
 so we cast the reading to a `int16_t`.
 
 When you've finished writing these functions, load your code 
 onto your device with `make openocd` and `make debug`.
 In the `openocd` window, you should see readings from your device, 
-in units of _mg_ (0.001 _g_s of acceleration, where _g_ is gravitational force, 9.81 m/s^2).
+in units of _mg_ (0.001 _g_ s of acceleration, where _g_ is gravitational force, 9.81 m/s^2).
 
 Place your STM32F4 Discovery board on a flat surface. 
-What are the readings? In this position, you should measure +1$g$ (around 1000 $mg$) on 
+What are the readings? In this position, you should measure +1 _g_ (around 1000 _mg_) on 
 the z-axis and 0 on the x-axis and y-axis. 
 Fill in the zero-G offset table in the report (refer to the 
 [LIS3DSH datasheet](http://www.st.com/web/en/resource/technical/document/datasheet/DM00040962.pdf),
@@ -138,14 +139,15 @@ Next, modify the `main` function in `main.c` to calculate pitch and roll of the 
 using the accelerometer values. Then, add some logic to set the LEDs each time you read 
 accelerometer values.
 
-In your report, show the logic you use
+In your report, show the code in which you set the LEDs based on the board orientation.
 
 ## Submit your work
 
 To submit your work, please open a terminal, navigate to the `4-spi-accel` folder, and run:
 
     git add REPORT.md
-    
+    git add accel-spi/src/main.c
+    git add accel-led/src/main.c
     git commit -m "Please grade this lab4-spi-accel submission"
     git push -u origin master
 

@@ -1,11 +1,11 @@
 Lab 4: Accelerometer and SPI
-====================
+============================
 
-Lab Assignment | 2 - GPIO Peripherals
--------------- | -------------
+Lab Assignment | 4 - Accelerometer
+-------------- | -----------------------
 Name           | 
 Net ID         | 
-Report due     | Monday, 9 March 2015
+Report due     | Thursday, 19 March 2015
 
 
 Please answer the following questions:
@@ -24,12 +24,13 @@ CS (chip select) |
 
 
 2) Read the `initAccelerometer()` function. Explain in your own words
-how the SPI interface used for communication with the accelerometer 
-is configured.
+how the SPI interface is configured and used for communication with the accelerometer.
+
 
 3) What are your zero-G offsets in the X, Y, and Z directions?
 Show 10 lines of output from your board when it is 
-sitting on a flat surface. Then fill in the table
+sitting on a flat surface. Then fill in the table.
+
 
 ```
 put output lines here
@@ -42,7 +43,14 @@ Y            |
 Z            |
 
 
-4) Show the code you use to light the  the accelerometer reading
+4) Show the code you use to light the LEDs according to the board's orientation.
+
+```
+fill in the relevant lines of code here.
+
+```
+
+
 5) In the `accel-whoami` program, we are reading from a register 
 on the device that is configured to return a default value. Based on the value
 that is returned, we can identify the device as a LIS3DSH or a LIS302DL.
