@@ -92,7 +92,7 @@ Next, read the `initAccelerometer()` function. In your report, explain in your o
 how the SPI interface used for communication with the accelerometer 
 is configured.
 
-Once you've completed these steps, move on to the `readSPI` and `writeSPI` 
+Once you've completed these steps, move on to the `readSPI()` and `writeSPI()` 
 functions. Using `stm32f4xx_spi.c` for reference on how to use the library functions,
 write the functions used by the microcontroller (master) to read and write over the SPI bus.
 There are comments in these functions to guide you.
@@ -119,7 +119,7 @@ Fill in the zero-G offset table in the report (refer to the
 Section 3.5.2, for more details.)
 
 Using `gdb`, set a breakpoint in `main.c`, right before you put the chip select line 
-low in `readSPI` (refer to lab 1 instructions for the syntax).
+low in `readSPI()` (refer to lab 1 instructions for the syntax for setting a breakpoint).
 Continue up until that breakpoint (with `continue`). Then, run `layout split` so that you can see both the C 
 and assembly code at the same time in `gdb`. Step through the *assembly* code using 
 the command `si` to run one assembly line at a time. (The `gdb` window will also show you where you 
@@ -146,15 +146,15 @@ that when you hold the STM32F4 Discovery board facing yourself, the lowest of th
 (the one closest to the ground - and only this one) is lit, regardless of how the board 
 is oriented.
 
-In the `accel-led` folder, copy the contents of your `writeSPI`, `readSPI`, and 
-`readAxes` functions into `main.c`. Also copy the `initLeds` function from the 
+In the `accel-led` folder, copy the contents of your `writeSPI()`, `readSPI()`, and 
+`readAxes()` functions into `main.c`. Also copy the `initLeds()` function you wrote in the 
 button press lab (lab 2 - library version) into `main.c`.
 
 Next, modify the `main` function in `main.c` to calculate pitch and roll of the board 
 using the accelerometer values. Then, add some logic to set the LEDs each time you read 
 accelerometer values.
 
-In your report, show the code in which you set the LEDs based on the board orientation.
+In your report, show the part of the code in which you set the LEDs based on the board orientation.
 
 ## Submit your work
 
