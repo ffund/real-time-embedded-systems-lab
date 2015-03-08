@@ -87,8 +87,8 @@ void initAccelerometer() {
 	spi.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
 	spi.SPI_FirstBit = SPI_FirstBit_MSB;
 	spi.SPI_Mode = SPI_Mode_Master;
-	spi.SPI_CPOL = SPI_CPOL_Low;
-	spi.SPI_CPHA = SPI_CPHA_1Edge;
+	spi.SPI_CPOL = SPI_CPOL_High;
+	spi.SPI_CPHA = SPI_CPHA_2Edge;
 	spi.SPI_NSS = SPI_NSS_Soft;
 
 	SPI_Init(SPI1, &spi);
@@ -125,12 +125,12 @@ void initAccelerometer() {
 	tmpreg = (uint8_t) (temp);
 
 	// Write configuration value (lower byte) to MEMS CTRL_REG4 register
-	writeSPI(tmpreg, LIS3DSH_CTRL_REG4_ADDR);
+	writeSPI(LIS3DSH_CTRL_REG4_ADDR, tmpreg);
 
 	tmpreg = (uint8_t) (temp >> 8);
 
 	// Write configuration value (upper byte) to MEMS CTRL_REG5 register
-	writeSPI(tmpreg, LIS3DSH_CTRL_REG5_ADDR);
+	writeSPI(LIS3DSH_CTRL_REG5_ADDR, tmpreg);
 }
 
 
@@ -141,20 +141,20 @@ void writeSPI(uint8_t address, uint8_t data){
 
 	// The SPI_I2S_FLAG_TXE flag gives the status of the transmit buffer
 	// register. Check its status with SPI_I2S_GetFlagStatus. 
-	// When it is *not* set, send 'address' using SPI1 with SPI_I2S_SendData
+	// When it is set, send 'address' using SPI1 with SPI_I2S_SendData
 
 
 	// The SPI_I2S_FLAG_RXNE flag gives the status of the receiver buffer 
 	// register. Check its status with SPI_I2S_GetFlagStatus. 
-	// When it is *not* set, receive data with SPI_I2S_ReceiveData
+	// When it is set, receive data with SPI_I2S_ReceiveData
 	// (recall that SPI *requires* full duplex, so you should always 
 	// receive a byte for each byte you send.)
 
 	 
-	// When the transmit buffer flag is *not* set, send 
+	// When the transmit buffer flag is set, send 
 	// 'data' using SPI1
 
-	// When the receive buffer flag is *not* set, receive a byte 
+	// When the receive buffer flag is set, receive a byte 
 	// over SPI1
 
 
@@ -180,22 +180,22 @@ uint8_t readSPI(uint8_t address){
 
 	// The SPI_I2S_FLAG_TXE flag gives the status of the transmit buffer
 	// register. Check its status with SPI_I2S_GetFlagStatus. 
-	// When it is *not* set, send 'address' using SPI1 with SPI_I2S_SendData
+	// When it is set, send 'address' using SPI1 with SPI_I2S_SendData
 
 
 	// The SPI_I2S_FLAG_RXNE flag gives the status of the receiver buffer 
 	// register. Check its status with SPI_I2S_GetFlagStatus. 
-	// When it is *not* set, receive data with SPI_I2S_ReceiveData
+	// When it is set, receive data with SPI_I2S_ReceiveData
 	// (recall that SPI *requires* full duplex, so you should always 
 	// receive a byte for each byte you send.)
 
 
-	// When the transmit buffer flag is *not* set, send 
+	// When the transmit buffer flag is set, send 
 	// '0x00' as a dummy byte using SPI1
 	// (recall that SPI *requires* full duplex, so you should always 
 	// send a byte for each byte you receive.)
 	 
-	// When the receive buffer flag is *not* set, receive a byte 
+	// When the receive buffer flag is set, receive a byte 
 	// over SPI1. Save the byte in `data`
 
 	// set chip select line high (use GPIO_SetBits)
