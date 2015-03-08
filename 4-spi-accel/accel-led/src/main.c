@@ -95,8 +95,8 @@ void initAccelerometer() {
 	spi.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
 	spi.SPI_FirstBit = SPI_FirstBit_MSB;
 	spi.SPI_Mode = SPI_Mode_Master;
-	spi.SPI_CPOL = SPI_CPOL_Low;
-	spi.SPI_CPHA = SPI_CPHA_1Edge;
+	spi.SPI_CPOL = SPI_CPOL_High;
+	spi.SPI_CPHA = SPI_CPHA_2Edge;
 	spi.SPI_NSS = SPI_NSS_Soft;
 
 	SPI_Init(SPI1, &spi);
@@ -133,12 +133,12 @@ void initAccelerometer() {
 	tmpreg = (uint8_t) (temp);
 
 	// Write configuration value (lower byte) to MEMS CTRL_REG4 register
-	writeSPI(tmpreg, LIS3DSH_CTRL_REG4_ADDR);
+	writeSPI(LIS3DSH_CTRL_REG4_ADDR, tmpreg);
 
 	tmpreg = (uint8_t) (temp >> 8);
 
 	// Write configuration value (upper byte) to MEMS CTRL_REG5 register
-	writeSPI(tmpreg, LIS3DSH_CTRL_REG5_ADDR);
+	writeSPI(LIS3DSH_CTRL_REG5_ADDR, tmpreg);
 }
 
 
