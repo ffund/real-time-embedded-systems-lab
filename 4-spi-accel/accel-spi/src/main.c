@@ -170,13 +170,13 @@ uint8_t readSPI(uint8_t address){
  
 	// set chip select line low (use GPIO_ResetBits)
 	 
+	 
 	// Read operations require a 7-bit register address and bit 8 set to 1, so 
 	// set `address` to `address` ORed with 1000 0000 (0x80 or 128) 
 	// (See section 6.2.1 of the data sheet -
 	// http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00040962.pdf
 	// - for more details)
-	address = 0x80 | address;
-	 
+	
 
 	// The SPI_I2S_FLAG_TXE flag gives the status of the transmit buffer
 	// register. Check its status with SPI_I2S_GetFlagStatus. 
