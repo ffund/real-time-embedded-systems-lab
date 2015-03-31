@@ -79,7 +79,7 @@ APB2  |
 
 
 8) What line of code in `system_stm32f4xx.c` would you
-change to clock the APB2 peripheral bus at 84 MHz? What would you change it to? Try changing this value and run the
+change to clock the APB1 peripheral bus at 84 MHz? What would you change it to? Try changing this value and run the
 `timing-pwm` program again. What is the effect of this change
 on the program?
 
