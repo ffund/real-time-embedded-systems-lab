@@ -327,6 +327,8 @@ We are going to implement a digital dice application. The dice will display a fo
 random number using the LEDs on the board. To generate a value, you must shake the board.
 The number will be displayed when you stop shaking the board.
 
+You can see a video of my digital dice implementation on [YouTube](http://youtu.be/38gIszeC3nY).
+
 The state machine for this application is:
 
 ![SM](http://i.imgur.com/UpKbFln.png)
@@ -357,11 +359,12 @@ Functions related to the hardware random number generator have been provided for
 
 You must fill in two functions:
 
- * `isShaking()` 
+ * `isShaking()` should return true while the board is shaking
  * `SysTick_Handler()` (which will be triggered when the system tick generates an interrupt)
 
 Some global variables and `#define` statements have been set up that you may choose to use inside 
-the `isShaking()` statement: a `BOUNCE_DELAY`, a `THRESHOLD`, and a `bounceCounter`.
+the `isShaking()` statement: a `BOUNCE_DELAY`, a `THRESHOLD`, and a `bounceCounter`. 
+(You'll need to set  `BOUNCE_DELAY` and `THRESHOLD` to appropriate values.)
 As you may have guessed, you will need to do some software debouncing inside your `isShaking` function
 in order to detect when the board is still being actively shaken and when it is at rest.
 
