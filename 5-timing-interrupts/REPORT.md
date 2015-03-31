@@ -29,7 +29,8 @@ NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
 NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x01;
 NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;
 NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-NVIC_Init(&NVIC_InitStructure);                                 ```
+NVIC_Init(&NVIC_InitStructure);                                 
+```
 
 2) Show the output of `print risingCounter` and `print risingCounter` in `gdb` that demonstrates switch bouncing.
 
@@ -69,7 +70,7 @@ may the compiler reorder them? Explain.
 given the system clock speed and the prescalers
 in the `system_stm32f4xx.c` file.
 
-Bus   | Speed
+Bus   | Speed (MHz)
 ----- |------------
 AHB   |
 APB1  |

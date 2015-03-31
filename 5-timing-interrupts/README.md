@@ -89,7 +89,8 @@ What value do you expect to see in `risingCounter` and `fallingCounter`? What va
 
 If you get a 10 in each, restart program execution and try it again, pressing the button faster this time.
 
-You should find that the program register more than 10 button presses (and possibly, a different number of presses and releases). This is because of *bouncing*.
+You should find that the program registers more than 10 button presses (and possibly, a different number of presses and releases). 
+This is because of *switch bounce*.
 Switch bounce is the non-ideal behavior of the contacts
 in a button or switch that creates multiple electrical
 transitions for a single user input.
@@ -102,18 +103,21 @@ it might look something like this:
 ![Bounce](http://upload.wikimedia.org/wikipedia/commons/a/ac/Bouncy_Switch.png)
 
 Bounce differs depending on the force and speed with which a user presses a button.
-This makes it tricky to debug - you might find that your produce involving a switch
+This makes it tricky to debug - you might find that your product involving a switch
 works OK when *you* test it in the lab. But when you release
 your product, and your end users press buttons
 with different force or speed than you typically
 do, your product will suddenly have bounce-related bugs.
 
-Switch debouncing can be done in an electrical circuit
+Switch debouncing techniques compensate for switch bounce, and can be done in an electrical circuit
 or in software. Learn about one method of switch debouncing
 of each type, and explain it in your report. Here are some useful references:
 
  * Jack Ganssle, [A Guide to Debouncing](http://www.eng.utah.edu/~cs5780/debouncing.pdf)
  * Slides from Oregon State University on [Debouncing Switches](http://web.engr.oregonstate.edu/~traylor/ece473/lectures/debounce.pdf)
+
+In the last part of this lab exercise (the digital dice application), you'll need to use 
+a debouncing technique. 
 
 #### Polled interrupts
 
@@ -142,7 +146,7 @@ for ( x = 0; x < 10000; x++ ) {
 }
 ```
 
-after `GPIO_SetBits(GPIOD, LEDS);` AND
+after `GPIO_SetBits(GPIOD, LEDS);` AND after
 `GPIO_ResetBits(GPIOD, LEDS);`.
 
 Load this program onto the board and press the black Reset button.
@@ -165,22 +169,22 @@ lab exercise will be very important.
 
 On the STM32F4 Discovery board, the system clock can operate at up to 168 MHz, 
 using an external crystal oscillator with a frequency of 8 MHz followed by a PLL multiplier.
-More specifically, the system clock is calculated from the 
-value of the HSE (high speed external oscillator) and some PLL parameters, as:
+More specifically, when the HSE (high speed external oscillator) is active, the system clock is calculated from the 
+value of the HSE and some PLL parameters, as:
 
 `SYSCLK =  ((HSE_VALUE / PLL_M) * PLL_N) / PLL_P`
 
 To operate at 168 MHz, we set
 
 Parameter | Value
-==========|=======
+----------|--------
 `PLL_M`   | 8
 `PLL_N`   | 336
 `PLL_P`   | 2
 
-We also need to specify the HSE frequency. The HSE value is defined in a library header file. 
+We also need to specify the HSE frequency, which is defined in a library header file. 
 This header file is generic, not specific to the F4 Discovery board, and defines the HSE value as 25 MHz. Until now, this
-didn't matter because we weren't using any perihperals that need exact timing (like Timer or UART peripherals).
+didn't matter because we weren't using any peripherals that needed exact timing (like Timer or UART peripherals).
 For this lab, to set the correct value for HSE, we will use the Makefile to pass a new
 `#define` statement to the project.
 
@@ -192,7 +196,7 @@ This is equivalent to adding
 
 `#define HSE_VALUE 8000000`
 
-to the project, and tells the code the frequency of the crystal oscillator.
+to the project, and tells the code the frequency of the crystal oscillator (8 MHz).
 
 #### Peripheral bus clocks
 
@@ -250,8 +254,10 @@ One quirk of the STM32F4 Discovery is the way the timer clock frequencies (input
 are set. From page 214 of the [STM32F4 Discovery Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf):
 
 > The timer clock frequencies are automatically set by hardware. There are two cases:
+> 
 > 1. If the APB prescaler is 1, the timer clock frequencies are set to the same frequency as
 > that of the APB domain to which the timers are connected.
+> 
 > 2. Otherwise, they are set to twice (×2) the frequency of the APB domain to which the
 > timers are connected
 
