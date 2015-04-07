@@ -88,7 +88,7 @@ on the program?
 20 ms, with a duty cycle of 80%.
 
 
-10) What is the value of the `lr` while inside `TIM2_IRQHandler`? What
+10) What is the value of the `lr` at the first line of `TIM2_IRQHandler`? What
 does this special value indicate?
 
 11) Why are hardware-timer-controlled PWM channels more valuable than CPU-controlled PWM 
