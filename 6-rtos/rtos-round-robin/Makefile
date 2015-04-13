@@ -60,7 +60,7 @@ endif
 #
 
 # Define project name here
-PROJECT = rtos-priority
+PROJECT = rtos-round-robin
 
 # Imported source files and paths
 CHIBIOS = ../ChibiOS_2.6.7_minified
