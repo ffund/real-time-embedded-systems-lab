@@ -204,7 +204,7 @@ The system clock speed and the speed of individual peripheral
 buses are set up in the `SystemInit()` function, which is called
 from the startup file. To see the `SystemInit()` function,
 
- * Load the `timing-interrupts` program onto your board with `openocd` and `gdb`
+ * Load the `timing-pwm` program onto your board with `openocd` and `gdb`
  * Before you run `continue` in `gdb`, set a breakpoint in the startup file: `break startup_stm32f4xx.S:97`
  * Run `continue` to resume program execution up to the breakpoint.
  * The program should break at the `bl  SystemInit` instruction. From this point on, step through the code line by line. Use `si` to step through assembly instructions and `s` to step through C code.
