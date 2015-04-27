@@ -27,7 +27,8 @@ you've learned in previous labs and lectures as well as some new concepts:
  * Use of incremental, test-driven process to implement a complex design
 
 
-Please read this *entire document* once before beginning.
+Please read this *entire document* once before beginning. In particular, 
+please read the Appendices, which contain important information.
 
 ### What to submit
 
@@ -209,7 +210,8 @@ plugged in to the breadboard, and connect it to the other multimeter lead:
 ![peripheral](http://i.imgur.com/ojHJFiY.jpg)
 
 
-Fill out the following table and include it in a multiline comment near the top of the `power.c` source file.
+Fill out the following table and include it in a multiline comment 
+near the top of the `power.c` source file.
 
  
 Measurement    |   State           |   Measured current  (mA) 
@@ -217,9 +219,13 @@ Measurement    |   State           |   Measured current  (mA)
 MCU            |  Normal           |
 MCU            |  Sleep            |
 MCU            |  Stop             |
-Breadboard     |  BT discoverable  |
+Breadboard     |  BT discovery     |
 Breadboard     |  BT connected     |
 Breadboard     |  BT Rx/TX         |
+
+
+
+Make sure to push the `power.c` file to Bitbucket afterwards!
 
 
 ## Appendices
@@ -422,3 +428,39 @@ You can read more information about the DAC in Section 14 of the [STM32F4 Discov
 
 
 ### Appendix F: Circular Buffer
+
+A circular buffer, or ring buffer, is an important data structure
+that is often used in the context of a system with a **producer-consumer** pair. (The Bluetooth receiver **produces** data and the main loop processes 
+and **consumes** it.)
+
+The key characteristic of a circular buffer is that it uses a buffer as if it were connected  end-to-end. We'll start with an array of a fixed size, and we will also keep track of two indexes in this array: a **read position** and a **write position**.
+
+
+Below is a picture of an empty circular buffer of size 8. Notice that this visualization of a circular buffer just takes an array and conceptually wraps it into a ring. You will notice that in this empty buffer, both the read and positions point to the same (initial) index.
+
+![Empty Ring](http://i.imgur.com/yYM8n5D.png)
+
+When we want to write some data, we will place it in the first index after the "write position" and increment the write position. You can see how this updates the circular buffer visually in the picture below.
+
+![Ring with one element](http://i.imgur.com/YDbYHcT.png)
+
+Now let's say that we wish to read some data. But how do we know that there is data that needs to be read? Simple - the write position is ahead of the read position, so we know that there is unread data.
+
+We will read the data that is in the index after our "read position" and then increment the read position. This is seen below.
+
+![Ring after write and read](http://i.imgur.com/0V7yn8e.png)
+
+If the write or read positions exceed the highest index in the ring (in this case, index 7), the index number will wrap around to the beginning. The writer can then keep writing to the buffer, as long as it does not go all the way around the ring and pass the read position.
+
+Below is just an example of the write position being ahead of the read position, after having wrapped around the ring.
+
+![Ring after many writes](http://i.imgur.com/jMiQ7tu.png)
+
+The key benefit of a circular buffer in this scenario is that we do not
+require mutual exclusion for a case with only one producer and one consumer.
+This is a useful property, since we are operating in a bare metal environment
+with no OS kernel to provide synchronization primitives.
+
+To be truly "safe,"" a circular buffer implementation should also ensure that the producer not put data in the buffer if it is full, and the consumer not extract data from the buffer if it is empty. In our basic implementation, 
+you will have to set the buffer size appropriately so that the buffer will 
+never fill.

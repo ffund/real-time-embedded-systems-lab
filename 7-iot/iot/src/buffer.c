@@ -55,7 +55,6 @@ volatile uint8_t read(buffer* buffer){
  * 
  */
 volatile uint8_t size(buffer* buffer){
-	return (buffer->writeIndex - buffer->readIndex);
-
+	return ((uint8_t)(buffer->writeIndex - buffer->readIndex) % BUFF_SIZE);
 }
 
