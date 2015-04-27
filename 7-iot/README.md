@@ -252,3 +252,20 @@ Breadboard            | Discovery board | Function
 
 
 
+### Appendix B: Resistive Sensors
+
+In this lab, we are using a standard light sensor ([photoresistor](http://en.wikipedia.org/wiki/Photoresistor)) to measure ambient light levels. 
+A photoresistor is an example of a *passive resistive sensor*--"passive" meaning that it **must** be powered by an external power source! 
+
+
+The resistance of a photoresistor decreases as the incident light intensity increases.  Many sensors used in the real world, like our photoresistor, are resistive sensors - that is, their resistance varies according to ambient conditions. For example, a potentiometer varies its resistance according to position, and a force sensitive resistor varies its resistance according to the force that is applied to it. 
+
+
+Having a variable resistance *on its own* is not sufficient to read in an analog value. The analog inputs on our board measure changes in voltage, 
+not resistance. To translate the resistance into voltage, we must add another resistor and build a **voltage divider**.
+
+In the image below, R2 represents a basic passive resistive sensor, and R1 represents a simple resistor. Notice that if we did not have this voltage divider in our circuit, we would not be able to measure variations in voltage at Vout.
+
+![Voltage Divider](https://cdn.sparkfun.com/assets/7/2/a/7/5/511acd39ce395f6746000000.png)
+
+In this circuit, if R2 increases in resistance, then Vout will increase in voltage. If R2 decreases in resistance, then Vout will decrease.
