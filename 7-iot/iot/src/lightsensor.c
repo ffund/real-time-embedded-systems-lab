@@ -41,15 +41,15 @@ void initAdc() {
 	ADC_InitTypeDef adc;
 	ADC_StructInit(&adc);  
 	adc.ADC_Resolution = ADC_Resolution_12b;
+        adc.ADC_ContinuousConvMode = ENABLE; 
 
 	ADC_Init(ADC1, &adc);
 
 	ADC_Cmd(ADC1,ENABLE);
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_10,1,ADC_SampleTime_480Cycles);
 
-
 	/* Use an analog watchdog to trigger interrupt on given thresholds      */
-        ADC_AnalogWatchdogThresholdsConfig(ADC1, LIGHT_THRESHOLD_LOW, LIGHT_THRESHOLD_HIGH);
+        ADC_AnalogWatchdogThresholdsConfig(ADC1, LIGHT_THRESHOLD_HIGH, LIGHT_THRESHOLD_LOW);
         ADC_AnalogWatchdogSingleChannelConfig(ADC1, ADC_Channel_10);
         ADC_ClearFlag(ADC1, ADC_FLAG_AWD);
         ADC_AnalogWatchdogCmd(ADC1, ADC_AnalogWatchdog_SingleRegEnable);
@@ -57,13 +57,14 @@ void initAdc() {
 
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-
 	/* Configure and enable ADC interrupt */
 	NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
+
+	ADC_SoftwareStartConv(ADC1);
 }
 
 /**
@@ -71,12 +72,14 @@ void initAdc() {
  *
  * This function reconfigures the analog watchdog thresholds.
  */
-void setAdcThresholds(uint32_t low, uint32_t high){
-        ADC_AnalogWatchdogThresholdsConfig(ADC1, low, high);
+void setAdcThresholds(uint32_t high, uint32_t low){
+
+        ADC_AnalogWatchdogThresholdsConfig(ADC1, high, low);
         ADC_AnalogWatchdogSingleChannelConfig(ADC1, ADC_Channel_10);
         ADC_ClearFlag(ADC1, ADC_FLAG_AWD);
         ADC_AnalogWatchdogCmd(ADC1, ADC_AnalogWatchdog_SingleRegEnable);
 	ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
+
 }
 
 

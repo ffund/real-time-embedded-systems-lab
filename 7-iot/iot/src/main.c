@@ -90,11 +90,13 @@ void USART1_IRQHandler(void){
 /**
  * @brief Interrupt handler for ADC1 interrupts
  *
- * If you have previously called initUsart(), this handler will be called
+ * If you have previously called initAdc(), this handler will be called
  * when the light reading is higher than LIGHT_THRESHOLD_HIGH or lower 
  * than LIGHT_THRESHOLD_LOW. 
  */
 void ADC_IRQHandler(void) {
-   ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
-   // do something
+    if(ADC_GetITStatus(ADC1, ADC_IT_AWD) != RESET) {
+     ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
+     // do something
+    }
 }

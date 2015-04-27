@@ -10,12 +10,6 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_usart.h"
 
-void timing_handler();
-
-void SysTick_Handler(void)
-{
-	timing_handler();
-}
 
 // Private variables
 volatile uint32_t time_var1, time_var2;
@@ -24,7 +18,6 @@ HMP3Decoder hMP3Decoder;
 
 // Private function prototypes
 static void AudioCallback(void *context,int buffer);
-void Delay(volatile uint32_t nCount);
 void initMusic();
 
 // External variables
@@ -125,24 +118,4 @@ static void AudioCallback(void *context, int buffer) {
 	}
 }
 
-
-
-/*
- * Called from systick handler
- */
-void timing_handler() {
-	if (time_var1) {
-		time_var1--;
-	}
-	time_var2++;
-}
-
-/*
- * Delay a number of systick cycles
- */
-void Delay(volatile uint32_t nCount) {
-	time_var1 = nCount;
-
-	while(time_var1){};
-}
 
