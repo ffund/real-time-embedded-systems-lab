@@ -112,7 +112,7 @@ void initBtState() {
     EXTI_Init(&EXTI_InitStructure);                         
     
     NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;                
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x08;   
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0;   
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;         
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;               
     NVIC_Init(&NVIC_InitStructure);                                 
