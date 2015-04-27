@@ -262,10 +262,10 @@ for our ChibiOS shell. We'll use them to explore RTOS scheduler functionality.
 
 For the rest of this lab, you may find the following references helpful:
 
- * [Create a thread in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios:howtos:createthread)
- * [Priority levels in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios:kb:priority)
- * [Round robin scheduling in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios:kb:round_robin)
- * [Reliable timing using threads in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios:kb:timing)
+ * [Create a thread in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios%3Ahowtos%3Acreatethread)
+ * [Priority levels in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios%3Akb%3Apriority)
+ * [Round robin scheduling in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios%3Akb%3Around_robin)
+ * [Reliable timing using threads in ChibiOS](http://www.chibios.org/dokuwiki/doku.php?id=chibios%3Akb%3Atiming)
 
 The first scheduler we'll look at will be a simpler priority scheduler. In the 
 `rtos-priority` folder, open `main.c`, 
