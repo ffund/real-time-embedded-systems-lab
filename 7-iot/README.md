@@ -370,7 +370,7 @@ module, and not your neighbor's.
 Then, open the Bluetooth terminal app. Click on the magnifying glass icon to 
 connect to your HC-05 device.
 
-![connect](http://i.imgur.com/WlYWr9E.png)
+![connect](http://i.imgur.com/WlYWr9E.png =100x20)
 
 Once you are connected, you can send and receive data over Bluetooth.
 
