@@ -355,9 +355,7 @@ press CTRL-C in the `rfcomm` terminal and then run `sudo rfcomm release 1`.
 You can also connet to the HC-05 module from any Android device. 
 Download a free Bluetooth serial terminal from the Google Play store; I am going 
 to demonstrate using one called "Terminal for Bluetooth" 
-(I like this one because it allows you to send hex data as well as ASCII data):
-
-![playstore](http://i.imgur.com/Z6a1m99.png)
+(I like this one because it allows you to send hex data as well as ASCII data).
 
 In Android, you can scan for and pair with your HC-05 module in the usual way.
 Use "1234" as the passkey.
@@ -370,7 +368,8 @@ module, and not your neighbor's.
 Then, open the Bluetooth terminal app. Click on the magnifying glass icon to 
 connect to your HC-05 device.
 
-![connect](http://i.imgur.com/WlYWr9E.png)
-
 Once you are connected, you can send and receive data over Bluetooth.
+
+![android](http://i.imgur.com/jN0Ukxk.png)
+
 
