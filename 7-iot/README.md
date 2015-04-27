@@ -156,6 +156,9 @@ When you have completed a new test function, commit the files you modified
 with `git` and push them to Bitbucket. (Don't wait until the end of the lab 
 to push your files; you should do this as you go along.)
 
+> Note: the binary file for this lab is very large, since it contains the entire
+MP3 file in program memory. It is therefore fairly slow to load onto the board.
+
 ### Implement the system
 
 
