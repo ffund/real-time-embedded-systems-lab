@@ -264,11 +264,113 @@ A photoresistor is an example of a *passive resistive sensor*--"passive" meaning
 The resistance of a photoresistor decreases as the incident light intensity increases.  Many sensors used in the real world, like our photoresistor, are resistive sensors - that is, their resistance varies according to ambient conditions. For example, a potentiometer varies its resistance according to position, and a force sensitive resistor varies its resistance according to the force that is applied to it. 
 
 
-Having a variable resistance *on its own* is not sufficient to read in an analog value. The analog inputs on our board measure changes in voltage, 
-not resistance. To translate the resistance into voltage, we must add another resistor and build a **voltage divider**.
+Having a variable resistance *on its own* is not sufficient to read in an analog value. The analog inputs on our board measure changes in voltage, not resistance. To translate the resistance into voltage, we must add another resistor and build a **voltage divider**.
 
 In the image below, R2 represents a basic passive resistive sensor, and R1 represents a simple resistor. Notice that if we did not have this voltage divider in our circuit, we would not be able to measure variations in voltage at Vout.
 
 ![Voltage Divider](https://cdn.sparkfun.com/assets/7/2/a/7/5/511acd39ce395f6746000000.png)
 
 In this circuit, if R2 increases in resistance, then Vout will increase in voltage. If R2 decreases in resistance, then Vout will decrease.
+
+### Appendix C: Bluetooth
+
+For wireless connectivity in this lab, we are using an HC-05 Bluetooth module.
+
+Bluetooth devices go through several stages to set up a point to point connection:
+
+ * **Discovery**: When a Bluetooth device is "discoverable," other Bluetooth devices can detect it.
+ * **Pairing**: The process of creating a persistent link between two Bluetooth devices. This may involve authentication, 
+which typically involves entering a passkey (default passkey is 1234 on the HC-05 module). This stage only occurs once; future connections between the devices are authenticated automatically.
+ * **Connection**: The devices may send and receive data to one another.
+
+On the HC-05, the Bluetooth discover, pairing, and connection logic is on the module itself - 
+you don't have to program it from the microcontroller. You should be able to discover, pair with, 
+and connect to the device from your phone or laptop as soon as it is powered on. 
+
+The HC-05 has a status LED and a digital output pin that give the current
+state of the module as follows:
+
+![bluetooth](http://i.imgur.com/3KcPlIJ.png)
+
+so you can check the LED to see what state your device is in.
+
+#### Connecting to Bluetooth on Ubuntu
+
+If your laptop has a Bluetooth device (either internal or a Bluetooth dongle), you 
+can use it to open a serial port to your device. 
+
+To check if you have a Bluetooth adapter recognized by Ubuntu, run `hcitool dev`. Sample 
+output indicating a connected adapter looks like this (althouh with different HCI number 
+and MAC address):
+
+```
+$ hcitool dev
+Devices:
+    hci0    40:2C:F4:C3:2E:B3
+```
+
+If you have a Bluetooth device, you can proceed.
+
+In the repository for this lab, you'll find a file called `rfcomm.conf`. This 
+contains configuration details for all of the Bluetooth modules on the pre-assembled 
+circuits for this lab. To intall the configuration file, copy it (using `sudo`) 
+to `/etc/bluetooth/rfcomm.conf`.
+
+Next, to scan for discoverable Bluetooth devices within range, run `hcitool scan`.
+
+```
+$ hcitool scan 
+Scanning ...
+    30:14:11:27:26:92   HC-05-001
+```
+
+> Note: For this lab, each Bluetooth device has a different name in the form `HC-05-N`. 
+The sticker underneath each circuit gives the number (`N`) of the Bluetooth module 
+on that circuit. This is so that you can make sure you are connecting to *your* Bluetooth
+module, and not your neighbor's.
+
+On one terminal, run `bluetooth-agent 1234`. Leave that running, and in a 
+second terminal, run `sudo rfcomm connect 1` where "1" is the number of your circuit/Bluetooth module.
+
+```
+### first terminal
+$ bluetooth-agent 1234
+Pincode request for device /org/bluez/833/hci0/dev_30_14_11_27_26_92
+
+### second terminal
+$ sudo rfcomm connect 1
+Connected /dev/rfcomm1 to 30:14:11:27:26:92 on channel 1
+Press CTRL-C for hangup
+
+```
+
+Leave the second terminal running.  Now you can open a serial console
+to the Bluetooth port, e.g. `sudo screen /dev/rfcomm1`.
+
+To cleanly terminate the Bluetooth connection, 
+press CTRL-C in the `rfcomm` terminal and then run `sudo rfcomm release 1`.
+
+#### Connecting to Bluetooth on Android
+
+You can also connet to the HC-05 module from any Android device. 
+Download a free Bluetooth serial terminal from the Google Play store; I am going 
+to demonstrate using one called "Terminal for Bluetooth" 
+(I like this one because it allows you to send hex data as well as ASCII data):
+
+![playstore](http://i.imgur.com/Z6a1m99.png)
+
+In Android, you can scan for and pair with your HC-05 module in the usual way.
+Use "1234" as the passkey.
+
+> Note: For this lab, each Bluetooth device has a different name in the form `HC-05-N`. 
+The sticker underneath each circuit gives the number (`N`) of the Bluetooth module 
+on that circuit. This is so that you can make sure you are connecting to *your* Bluetooth
+module, and not your neighbor's.
+
+Then, open the Bluetooth terminal app. Click on the magnifying glass icon to 
+connect to your HC-05 device.
+
+![connect](http://i.imgur.com/WlYWr9E.png)
+
+Once you are connected, you can send and receive data over Bluetooth.
+
