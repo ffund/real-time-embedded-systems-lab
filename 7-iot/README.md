@@ -373,3 +373,52 @@ Once you are connected, you can send and receive data over Bluetooth.
 ![android](http://i.imgur.com/jN0Ukxk.png)
 
 
+### Appendix D: RGB LED
+
+The most prominent component on the breadboard is a 10mm LED. It has four legs, indicating that it's an RGB LED. 
+
+RGB LEDs come in two configurations: common anode and common cathode. Ours is a common cathode, 
+which means that one leg (the longest one) is a shared ground. The other three legs are 
+each used to turn on one of three LEDs (red, green, blue) inside the bulb. (If the bulb was clear, 
+you'd be able to look closely at it and see each of the three individual LEDs; the bulb on our 
+breadboard is diffused, though, so it's hard to pick out the individual colors.)
+
+By varying the foward current through each of the LEDs, you can "mix" colors and form 
+any color in the [RGB color triangle](http://en.wikipedia.org/wiki/RGB_color_model):
+
+![color triangle](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/CIExy1931_sRGB_gamut_D65.png/320px-CIExy1931_sRGB_gamut_D65.png)
+
+There are essentially two ways to vary the forward current and thereby control
+the LED color:
+
+ * Using resistors. We need a current limiting resistor on the red leg in any case, because its maximum forward voltage is 2.0V. By selecting appropriate resistors, or using a variable resistor, we could change the "mixed" color. 
+ * PWM. By adjusting the duty cycle of the signal to a leg, we can modulate the intensity of that color
+and change the "mixed" color.
+
+
+### Appendix E: Audio DAC
+
+In this lab we will be making use of the on-board DAC (digital to analog converter) on the Discovery board to 
+play audio off of our board.
+
+
+As you may have noticed, our Discovery Board comes with a single audio output port that you 
+can plug your standard headphone and speaker jacks into. You'll use this audio port to listen to the 
+"lullaby" in this lab.
+
+The music that we'll be using is a recording of Brahms' lullaby.
+It has been *encoded* in the mp3 format. This has two implications:
+
+ * The size of the music file is much smaller than a "raw" audio file would be, because the mp3 format compresses the audio signal. This is important because we are storing the file data in program memory, which is very limited. (The mp3 file has been previously converted from a binary file to a C array for storage in program memory - see the `audio/mp3_data.c` file.)
+ * The music will need to be *decoded* (converted back to a raw audio format) before it can be played by our DAC. In our lab, we are using a port of the [helix mp3 decoder](https://datatype.helixcommunity.org/Mp3dec) (original found [here](http://vedder.se/2012/07/play-mp3-on-the-stm32f4-discovery/)) to decode the music on the Discovery board.
+
+Once the mp3 file is decoded by the helix decoder, we need to send the raw audio signal to the DAC. 
+Actually, we'll open two communication lines to the DAC:
+
+ * For audio data, we'll use a Integrated Inter-chip Sound I2S communication line. You can read more information about I2S in Section 28.4 of the [STM32F4 Discovery Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf).
+ * For control data, we'll set up a standard I2C line.
+
+You can read more information about the DAC in Section 14 of the [STM32F4 Discovery Reference Manual](http://witestlab.poly.edu/~ffund/el6483/files/DM00031020.pdf). There is also a helpful tutorial on configuring the Discovery board for audio, [here](http://www.mind-dump.net/configuring-the-stm32f4-discovery-for-audio).
+
+
+### Appendix F: Circular Buffer
