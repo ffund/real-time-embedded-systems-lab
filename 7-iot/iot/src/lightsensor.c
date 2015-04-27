@@ -66,6 +66,19 @@ void initAdc() {
 	NVIC_Init(&NVIC_InitStructure);
 }
 
+/**
+ * @brief Change thresholds for light sensor readings
+ *
+ * This function reconfigures the analog watchdog thresholds.
+ */
+void setAdcThresholds(uint32_t low, uint32_t high){
+        ADC_AnalogWatchdogThresholdsConfig(ADC1, low, high);
+        ADC_AnalogWatchdogSingleChannelConfig(ADC1, ADC_Channel_10);
+        ADC_ClearFlag(ADC1, ADC_FLAG_AWD);
+        ADC_AnalogWatchdogCmd(ADC1, ADC_AnalogWatchdog_SingleRegEnable);
+	ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
+}
+
 
 
 /**

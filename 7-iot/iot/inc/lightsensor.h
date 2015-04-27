@@ -8,6 +8,9 @@
 /* Set up analog input and ADC to read values from light sensor */
 void initAdc();
 
+/* Change thresholds for light sensor readings */
+void setAdcThresholds(uint32_t, uint32_t);
+
 /* Get current light reading (digital value) from light sensor */
 int getLightReading();
 
