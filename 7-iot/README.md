@@ -116,7 +116,7 @@ and a repository in the company's source control system.
 
 Here's the circuit she left you:
 
-![circuit](http://i.imgur.com/7QYM2rb.jpg)
+![circuit](http://i.imgur.com/fyJFo4c.jpg)
 
 The engineer had started coding the project, and her code is all 
 available to you in the company's source control system. Specifically, inside 
