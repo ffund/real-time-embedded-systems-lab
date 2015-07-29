@@ -76,13 +76,6 @@ when you modify thread 3 to have a higher priority than the other threads?
 
 ```
 
-Draw a chart (like the one on page 40 of the lecture slides) showing the scheduling
-of these five tasks using the round robin scheduler with priority. Note the
-priority of each task on the chart. Upload it to any image hosting service and
-show the image inline here:
-
-![]()
-
 9) What is the computation time and period of each of the tasks in the `rtos-rms` 
 project? Fill in the following table.
 
